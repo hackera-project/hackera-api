@@ -1,0 +1,21 @@
+services:
+  app:
+    image: public.ecr.aws/x1j8x6h3/laravel-octane-image-base:8.3
+    container_name: hackera-api
+    networks:
+      - mysql-network
+      - traefik-network
+    working_dir: /app
+    volumes:
+      - .:/app
+      - .docker/dev.supervisord.conf:/etc/supervisor.d/app.conf
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hacker-api.rule=Host(`${APP_DOMAIN}`)"
+      - "traefik.docker.network=traefik-network"
+
+networks:
+  mysql-network:
+    external: true
+  traefik-network:
+    external: true
