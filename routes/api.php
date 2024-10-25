@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\CompanyController;
+use App\Http\Controllers\V1\ProgramController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function() {
@@ -14,5 +15,7 @@ Route::prefix('v1')->group(function() {
         Route::post('/auth/logout', [AuthController::class, 'logout']);
 
         Route::apiResource('companies', CompanyController::class)->except('store');
+
+        Route::apiResource('programs', ProgramController::class);
     });
 });

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Company;
+use App\Models\Program;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -25,6 +26,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('exclusion')->nullable();
             $table->dateTime('deadline')->nullable();
+            $table->string('status')->default(Program::STATUS_REVIEW);
+            $table->json('payments')->nullable();
 
             $table->timestamps();
         });
