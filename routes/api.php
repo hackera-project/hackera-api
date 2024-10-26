@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\AssetController;
 use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\CompanyController;
 use App\Http\Controllers\V1\ProgramController;
@@ -17,5 +18,7 @@ Route::prefix('v1')->group(function() {
         Route::apiResource('companies', CompanyController::class)->except('store');
 
         Route::apiResource('programs', ProgramController::class);
+
+        Route::apiResource('programs/{program}/assets', AssetController::class)->except('show');
     });
 });

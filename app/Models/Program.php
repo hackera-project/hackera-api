@@ -2,19 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Enums\Program\ProgramStatus;
+use App\Models\Enums\Program\ProgramType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Program extends Model
 {
-    public const TYPE_BBP = 'bbp';
-    public const TYPE_VDP = 'vdp';
-    public const TYPE_PRIVATE = 'private';
-    public const TYPE_CAMPAIGN = 'campaign';
-
-    public const STATUS_ACTIVE = 'active';
-    public const STATUS_DEACTIVE = 'deactive';
-    public const STATUS_REVIEW = 'review';
-
     protected $fillable = [
         'title',
         'user_id',
@@ -32,6 +26,8 @@ class Program extends Model
         return [
             'deadline' => 'datetime',
             'payments' => 'array',
+            'type' => ProgramType::class,
+            'status' => ProgramStatus::class,
         ];
     }
 
@@ -45,7 +41,7 @@ class Program extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function assets()
+    public function assets(): BelongsToMany
     {
         return $this->belongsToMany(Asset::class);
     }
