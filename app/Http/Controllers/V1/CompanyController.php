@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\V1;
 
+use App\Http\Requests\V1\Company\UpdateRequest;
 use App\Http\Response;
 use App\Models\Company;
 use App\Http\Controllers\Controller;
@@ -17,5 +18,12 @@ class CompanyController extends Controller
         $company = Company::query()->create($data);
 
         return Response::success(['id' => $company->id]);
+    }
+
+    public function update(UpdateRequest $request)
+    {
+        $data = $request->validated();
+
+        dd($data);
     }
 }

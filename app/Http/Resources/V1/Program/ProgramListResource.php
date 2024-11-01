@@ -18,6 +18,9 @@ class ProgramListResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'status' => $this->status,
+            'assets_count' => $this->assets_count,
+            'company' => $this->whenLoaded('company', $this->company),
+            'assets' => $this->whenLoaded('assets', $this->assets->groupBy('type')->map(fn ($a) => count($a))),
         ];
     }
 }

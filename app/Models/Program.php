@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\Enums\Program\ProgramStatus;
 use App\Models\Enums\Program\ProgramType;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Program extends Model
 {
@@ -38,12 +38,12 @@ class Program extends Model
 
     public function company()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Company::class);
     }
 
-    public function assets(): BelongsToMany
+    public function assets(): HasMany
     {
-        return $this->belongsToMany(Asset::class);
+        return $this->hasMany(Asset::class);
     }
 
     public function emptyPayments()

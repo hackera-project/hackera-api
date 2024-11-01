@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Company;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->string('username')->nullable();
             $table->string('website')->nullable();
             $table->json('social_meida')->nullable();
+            $table->foreignIdFor(Company::class)->nullable();
 
             $table->timestamps();
         });

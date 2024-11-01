@@ -21,6 +21,7 @@ class User extends Authenticatable
 
         'website',
         'social_media',
+        'company_id',
     ];
 
     protected $hidden = [
@@ -42,5 +43,10 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany(Role::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 }

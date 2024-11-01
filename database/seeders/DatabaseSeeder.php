@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Company;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,11 +27,17 @@ class DatabaseSeeder extends Seeder
 
         $user->roles()->attach([1]);
 
+
+        $company = Company::query()->create([
+            'title' => 'Comapny 1',
+        ]);
+
         $user = User::query()->create([
             'name' => 'Company Admin',
             'username' => 'companyAdmin',
             'email' => 'company.admin@gmail.com',
             'password' => 'password',
+            'company_id' => $company->id,
         ]);
 
         $user->roles()->attach([2]);

@@ -20,11 +20,18 @@ class ProgramController extends Controller
         $role = $user->roles->first()->name;
 
         $query = match ($role) {
-            Role::HACKER => fn ($q) => $q->where('deadline', '>', now()),
-            Role::COMPANY_ADMIN => fn ($q) => $q->where('company_id', $user->company_id),
+            Role::HACKER => fn ($q) => $q
+                ->where(fn ($qu) => $qu->where('deadline', '>', now())->orWhereNull('deadline')),
+
+            Role::COMPANY_ADMIN => fn ($q) => $q
+                ->where('company_id', $user->company_id),
         };
 
-        $programs = Program::query()->where($query)->latest()->paginate();
+        $programs = Program::query()
+            ->with(['company:id,title', 'assets:id,program_id,type'])
+            ->where($query)
+            ->latest()
+            ->paginate();
 
         return Response::successList($programs, ProgramListResource::class);
     }
