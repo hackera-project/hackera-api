@@ -8,7 +8,7 @@ use App\Http\Resources\V1\Program\ProgramListResource;
 use App\Http\Resources\V1\Program\ProgramResource;
 use App\Http\Response;
 use App\Models\Program;
-use App\Models\Role;
+use App\Models\Enums\Role\Role;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,15 +20,16 @@ class ProgramController extends Controller
         $role = $user->roles->first()->name;
 
         $query = match ($role) {
-            Role::HACKER => fn ($q) => $q
+            Role::Hacker => fn ($q) => $q
                 ->where(fn ($qu) => $qu->where('deadline', '>', now())->orWhereNull('deadline')),
 
-            Role::COMPANY_ADMIN => fn ($q) => $q
+            Role::CompanyAdmin => fn ($q) => $q
                 ->where('company_id', $user->company_id),
         };
 
         $programs = Program::query()
             ->with(['company:id,title', 'assets:id,program_id,type'])
+            ->withCount('assets')
             ->where($query)
             ->latest()
             ->paginate();
@@ -44,6 +45,9 @@ class ProgramController extends Controller
     public function store(StoreRequest $request): JsonResponse
     {
         $data = $request->validated();
+
+        $data['user_id'] = auth()->id();
+        $data['company_id'] = auth()->user()->company_id;
 
         $program = Program::query()->create($data);
 

@@ -9,7 +9,6 @@ use App\Http\Response;
 use App\Models\Asset;
 use App\Models\Program;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class AssetController extends Controller
 {
@@ -18,9 +17,9 @@ class AssetController extends Controller
         $assets = Asset::query()
             ->where('program_id', $program->id)
             ->latest()
-            ->paginate();
+            ->get();
 
-        return Response::successList($assets, AssetResource::class);
+        return Response::success(AssetResource::collection($assets));
     }
 
     public function store(Program $program, StoreRequest $request): JsonResponse

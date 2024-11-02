@@ -21,6 +21,10 @@ class ProgramListResource extends JsonResource
             'assets_count' => $this->assets_count,
             'company' => $this->whenLoaded('company', $this->company),
             'assets' => $this->whenLoaded('assets', $this->assets->groupBy('type')->map(fn ($a) => count($a))),
+            'payments' => [
+                'min' => $this->payments['low_severity']['min'] ?? null,
+                'max' => $this->payments['critical_severity']['max'] ?? null,
+            ]
         ];
     }
 }
