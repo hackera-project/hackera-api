@@ -21,6 +21,12 @@ class ReportResource extends JsonResource
             'cve' => $this->cve,
             'cwe' => $this->cwe,
             'severity' => $this->severity,
+            'feedbacks' => $this->feedbacks->map(fn ($f) => [
+                'id' => $f->id,
+                'content' => $f->content,
+                'created_at' => $f->created_at->toDateTimeString(),
+                'user' => $f->user,
+            ]),
         ];
     }
 }

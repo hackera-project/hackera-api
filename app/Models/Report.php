@@ -46,4 +46,9 @@ class Report extends Model
     {
         return $this->belongsTo(Asset::class);
     }
+
+    public function feedbacks()
+    {
+        return $this->hasMany(ReportFeedback::class);
+    }
 }

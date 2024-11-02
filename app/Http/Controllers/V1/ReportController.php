@@ -35,7 +35,12 @@ class ReportController extends Controller
 
     public function show(Report $report): JsonResponse
     {
-        $report->load(['hacker:id,name', 'program']);
+        $report->load([
+            'hacker:id,name',
+            'program',
+            'feedbacks' => fn ($q) => $q->latest(),
+            'feedbacks.user:id,name',
+        ]);
 
         return Response::success(ReportResource::make($report));
     }

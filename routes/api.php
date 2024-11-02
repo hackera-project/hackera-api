@@ -5,6 +5,7 @@ use App\Http\Controllers\V1\AuthController;
 use App\Http\Controllers\V1\CompanyController;
 use App\Http\Controllers\V1\ProgramController;
 use App\Http\Controllers\V1\ReportController;
+use App\Http\Controllers\V1\ReportFeedbackController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function() {
@@ -23,5 +24,8 @@ Route::prefix('v1')->group(function() {
         Route::apiResource('programs/{program}/assets', AssetController::class)->except('show');
 
         Route::apiResource('reports', ReportController::class);
+
+        // Route::get('reports/{report}/feedbacks', [ReportFeedbackController::class, 'index']);
+        Route::post('reports/{report}/feedbacks', [ReportFeedbackController::class, 'store']);
     });
 });
