@@ -7,11 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use App\Observers\UserObserver;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\HasMedia;
 
-class User extends Authenticatable
+#[ObservedBy([UserObserver::class])]
+class User extends Authenticatable implements HasMedia
 {
     use HasFactory, Notifiable;
     use HasApiTokens;
+    use InteractsWithMedia;
 
     protected $fillable = [
         'name',

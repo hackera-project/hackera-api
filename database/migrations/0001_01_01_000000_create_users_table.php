@@ -23,7 +23,7 @@ return new class extends Migration
 
             $table->string('username')->nullable();
             $table->string('website')->nullable();
-            $table->json('social_meida')->nullable();
+            $table->json('social_media')->nullable();
             $table->foreignIdFor(Company::class)->nullable();
 
             $table->timestamps();
