@@ -6,6 +6,7 @@ use App\Http\Controllers\V1\CompanyController;
 use App\Http\Controllers\V1\ProgramController;
 use App\Http\Controllers\V1\ReportController;
 use App\Http\Controllers\V1\ReportFeedbackController;
+use App\Http\Controllers\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function() {
@@ -16,6 +17,9 @@ Route::prefix('v1')->group(function() {
     Route::middleware('auth:sanctum')-> group(function() {
         Route::get('/auth/me', [AuthController::class, 'me']);
         Route::post('/auth/logout', [AuthController::class, 'logout']);
+
+        Route::get('profile', [UserController::class, 'profile']);
+        Route::put('profile', [UserController::class, 'updateProfile']);
 
         Route::apiResource('companies', CompanyController::class)->except('store');
 
