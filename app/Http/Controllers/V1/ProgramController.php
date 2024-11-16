@@ -28,7 +28,7 @@ class ProgramController extends Controller
         };
 
         $programs = Program::query()
-            ->with(['company:id,title', 'assets:id,program_id,type'])
+            ->with(['company:id,title', 'assets:id,program_id,type', 'company.media'])
             ->withCount('assets')
             ->where($query)
             ->latest()
