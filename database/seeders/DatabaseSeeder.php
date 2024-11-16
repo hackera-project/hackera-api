@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Company;
+use App\Models\Program;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,28 +19,14 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
         ]);
 
-        $user = User::query()->create([
-            'name' => 'Hacker',
-            'username' => 'True Hacker',
-            'email' => 'hacker@gmail.com',
-            'password' => 'password',
-        ]);
+        $users = User::factory()->count(20)->create();
 
-        $user->roles()->attach([1]);
+        $users->each(fn ($u) => $u->roles()->attach([1]));
 
+        $users = User::factory()->count(10)->create(['company_id' => Company::factory()]);
 
-        $company = Company::query()->create([
-            'title' => 'Comapny 1',
-        ]);
+        $users->each(fn ($u) => $u->roles()->attach([2]));
 
-        $user = User::query()->create([
-            'name' => 'Company Admin',
-            'username' => 'companyAdmin',
-            'email' => 'company.admin@gmail.com',
-            'password' => 'password',
-            'company_id' => $company->id,
-        ]);
-
-        $user->roles()->attach([2]);
+        Program::factory()->count(30)->create();
     }
 }

@@ -12,8 +12,8 @@ class RoleSeeder extends Seeder
 
     public function run(): void
     {
-        Role::query()->create(['name' => 'hacker']);
-        Role::query()->create(['name' => 'company-admin']);
-        Role::query()->create(['name' => 'company-employee']);
+        Role::query()->updateOrCreate(['name' => 'hacker']);
+        Role::query()->updateOrCreate(['name' => 'company-admin']);
+        Role::query()->updateOrCreate(['name' => 'company-employee']);
     }
 }

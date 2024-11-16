@@ -23,6 +23,7 @@ class Report extends Model
         'cve',
         'cwe',
         'payment',
+        'reviewer_comment',
     ];
 
     public function casts()

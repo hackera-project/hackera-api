@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\Report\StoreRequest;
+use App\Http\Requests\V1\Report\UpdateRequest;
 use App\Http\Resources\V1\Report\ReportListResource;
 use App\Http\Resources\V1\Report\ReportResource;
 use App\Http\Response;
@@ -53,5 +54,14 @@ class ReportController extends Controller
         Report::query()->create($data);
 
         return Response::success(message: __('response.created', ['subject' => __('report')]));
+    }
+
+    public function update(Report $report, UpdateRequest $request): JsonResponse
+    {
+        $data = $request->validated();
+
+        $report->update($data);
+
+        return Response::success(message: __('response.updated', ['subject' => __('report')]));
     }
 }
