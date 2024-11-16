@@ -5,8 +5,6 @@ WORKDIR /app
 RUN docker-php-ext-configure exif \
     && docker-php-ext-install exif
 
-COPY composer.json composer.json
-
 RUN composer install --no-dev --no-interaction --optimize-autoloader
 
 COPY . .
