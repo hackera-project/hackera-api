@@ -5,8 +5,8 @@ WORKDIR /app
 RUN docker-php-ext-configure exif \
     && docker-php-ext-install exif
 
-RUN composer install --no-dev --no-interaction --optimize-autoloader
-
 COPY . .
 COPY .docker/prod.supervisord.conf /etc/supervisor.d/app.conf
+
+RUN composer install --no-dev --no-interaction --optimize-autoloader
 
