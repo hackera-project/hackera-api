@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Asset;
 use App\Models\Company;
 use App\Models\Program;
 use App\Models\User;
@@ -27,6 +28,6 @@ class DatabaseSeeder extends Seeder
 
         $users->each(fn ($u) => $u->roles()->attach([2]));
 
-        Program::factory()->count(30)->create();
+        Program::factory()->count(30)->has(Asset::factory()->count(5))->create();
     }
 }

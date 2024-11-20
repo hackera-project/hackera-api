@@ -20,7 +20,7 @@ class ProgramListResource extends JsonResource
             'status' => $this->status,
             'assets_count' => $this->assets_count,
             'company' => $this->whenLoaded('company', $this->company),
-            'logo' => $this->whenLoaded('company', $this->company->getFirstMedia('logo')->getTemporaryUrl(now()->addDay())),
+            'logo' => $this->whenLoaded('company', $this->company->getFirstMedia('logo')?->getTemporaryUrl(now()->addDay())),
             'assets' => $this->whenLoaded('assets', $this->assets->groupBy('type')->map(fn ($a) => count($a))),
             'payments' => [
                 'min' => $this->payments['low_severity']['min'] ?? null,
